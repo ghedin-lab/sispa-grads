@@ -36,7 +36,7 @@ def subFastq(seqObj,end):
     l = seqObj.format("fastq").rstrip().split("\n")
     l[1] = l[1][end:]
     l[3] = l[3][end:]
-    return "\n".join(l)
+    return "\n".join(l,"\n")
 
 with open("HYGNVBGXX_n01_grads_set03_dna_digest.fastq","r") as f1, open("unclassified.r1.fastq","w") as u1, open("unclassified.r2.fastq","w") as u2:
     f2 = SeqIO.parse(open("HYGNVBGXX_n02_grads_set03_dna_digest.fastq","r"),"fastq")
