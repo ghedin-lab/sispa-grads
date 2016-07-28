@@ -1,7 +1,6 @@
 ./.R*
 *fastq*
 *.o*
-*txt
 *tsv
 *csv
 *tgz
