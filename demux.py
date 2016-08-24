@@ -5,6 +5,7 @@ from Bio import SeqIO
 
 bc = dict()
 
+# make sure this file is in your working directory. You can grab it from github
 with open("GRADS_randomized_samples_2_with_colors_with_barcodes.txt","r") as f:
     for line in f:
         if "PLATE" in line:
@@ -38,12 +39,14 @@ def subFastq(seqObj,end):
     l[3] = l[3][end:]
     return "\n".join([l,"\n"])
 
+# change the fastq names accordingly
 with open("HYGNVBGXX_n01_grads_set03_rna_digest.fastq","r") as f1, open("unclassified.r1.fastq","w") as u1, open("unclassified.r2.fastq","w") as u2:
     f2 = SeqIO.parse(open("HYGNVBGXX_n02_grads_set03_rna_digest.fastq","r"),"fastq")
     for r1 in SeqIO.parse(f1,"fastq"):
         # WTF IS THIS?!
         r2 = next(f2)
 
+	# change rna1/2 to dna1/2. Can be configured in argparse
         if str(r1.seq[6:13]) in bc:
             bc[str(r1.seq[6:13])]["rnar1"].write(subFastq(r1,13))
             bc[str(r1.seq[6:13])]["rnar2"].write(subFastq(r2,13))
