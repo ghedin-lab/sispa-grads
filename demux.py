@@ -36,20 +36,20 @@ def subFastq(seqObj,end):
     l = seqObj.format("fastq").rstrip().split("\n")
     l[1] = l[1][end:]
     l[3] = l[3][end:]
-    return "\n".join(l,"\n")
+    return "\n".join([l,"\n"])
 
-with open("HYGNVBGXX_n01_grads_set03_dna_digest.fastq","r") as f1, open("unclassified.r1.fastq","w") as u1, open("unclassified.r2.fastq","w") as u2:
-    f2 = SeqIO.parse(open("HYGNVBGXX_n02_grads_set03_dna_digest.fastq","r"),"fastq")
+with open("HYGNVBGXX_n01_grads_set03_rna_digest.fastq","r") as f1, open("unclassified.r1.fastq","w") as u1, open("unclassified.r2.fastq","w") as u2:
+    f2 = SeqIO.parse(open("HYGNVBGXX_n02_grads_set03_rna_digest.fastq","r"),"fastq")
     for r1 in SeqIO.parse(f1,"fastq"):
         # WTF IS THIS?!
         r2 = next(f2)
 
         if str(r1.seq[6:13]) in bc:
-            bc[str(r1.seq[6:13])]["dnar1"].write(subFastq(r1,13))
-            bc[str(r1.seq[6:13])]["dnar2"].write(subFastq(r2,13))
+            bc[str(r1.seq[6:13])]["rnar1"].write(subFastq(r1,13))
+            bc[str(r1.seq[6:13])]["rnar2"].write(subFastq(r2,13))
         elif str(r1.seq[5:12]) in bc:
-            bc[str(r1.seq[5:12])]["dnar1"].write(subFastq(r1,12))
-            bc[str(r1.seq[5:12])]["dnar2"].write(subFastq(r2,12))
+            bc[str(r1.seq[5:12])]["rnar1"].write(subFastq(r1,12))
+            bc[str(r1.seq[5:12])]["rnar2"].write(subFastq(r2,12))
             #print("5",bc[str(r1.seq[5:12])]["dna"],r1.seq[5:12],r1.seq[0:13])
         else:
             #print("NA",r1.seq[0:13])
